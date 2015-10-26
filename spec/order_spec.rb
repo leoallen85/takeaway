@@ -1,9 +1,11 @@
 require "order"
 
 describe Order do
-  subject(:order) { described_class.new(menu) }
+  subject(:order) { described_class.new(menu: menu, sms: sms) }
 
   let(:menu) { double(:menu) }
+  let(:sms) { spy(:sms) }
+  let(:config) { :config }
 
   let(:dishes) do
     {
@@ -26,6 +28,12 @@ describe Order do
     create_order
     total = 8.50
     expect(order.total).to eq(total)
+  end
+
+  it "sends a message when the order is placed" do
+    create_order
+    order.place
+    expect(sms).to have_received(:deliver)
   end
 
   def create_order
