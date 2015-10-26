@@ -7,7 +7,14 @@ class Menu
 
   def print
     dishes.map do |title, price|
-      "%s ¬£%.2f" % [title.to_s.capitalize, price]
+      "%s Å£%.2f" % [title.to_s.capitalize, price]
     end.join(", ")
+
+jjj    diesh
+  end
+
+  def dish_entries
+      dishes.map do ||
+      		 yield title, price
   end
 end
