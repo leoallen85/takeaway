@@ -4,9 +4,8 @@ class Order
 
   attr_reader :dishes
 
-  def initialize(menu:, config: {}, sms: nil)
+  def initialize(menu)
     @menu = menu
-    @sms = sms || SMS.new(config)
     @dishes = {}
   end
 
@@ -22,10 +21,6 @@ class Order
     item_totals.reduce(:+)
   end
 
-  def place
-    send_message
-  end
-
   private
 
   attr_reader :menu, :sms
@@ -34,9 +29,5 @@ class Order
     dishes.map do |dish, quantity|
       menu.price(dish) * quantity
     end
-  end
-
-  def send_message
-    sms.deliver
   end
 end

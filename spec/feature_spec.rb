@@ -18,13 +18,10 @@ describe "Takeaway" do
     }
 
     menu = Menu.new(dishes)
-    order = Order.new(config: config, menu: menu)
-    order.add(:chicken, 3)
-    order.add(:falafel, 4)
-    expect(order.total).to eq(19.50)
+    takeaway = Takeaway.new(menu: menu, config: config)
 
-    expect(order).to receive(:send_message)
-    order.place
+    expect(takeaway).to receive(:send_message)
+    expect(takeaway.place_order(chicken: 3, falafel: 4)).to eq "Your order is for £19.50"
   end
 
 end
