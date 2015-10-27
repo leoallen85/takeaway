@@ -13,7 +13,8 @@ describe "Takeaway" do
       account_sid: "123",
       auth_token: "234",
       from: "+123",
-      to: "+345"
+      to: "+345",
+      body: "Thank you! Your order will be delivered before %s"
     }
 
     menu = Menu.new(dishes)
