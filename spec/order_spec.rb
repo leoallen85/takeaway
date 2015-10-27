@@ -15,6 +15,10 @@ describe Order do
   end
 
   before do
+    allow(menu).to receive(:has_dish?).with(:chicken).and_return(true)
+    allow(menu).to receive(:has_dish?).with(:fish).and_return(true)
+    allow(menu).to receive(:has_dish?).with(:beef).and_return(false)
+
     allow(menu).to receive(:price).with(:chicken).and_return(3.00)
     allow(menu).to receive(:price).with(:fish).and_return(2.50)
   end
@@ -22,6 +26,10 @@ describe Order do
   it "selects several dishes from the menu" do
     create_order
     expect(order.dishes).to eq(dishes)
+  end
+
+  it "doesn't allow to add items that are not on the menu" do
+    expect{ order.add(:beef, 2) }.to raise_error(StandardError, "Beef is not on the menu!")
   end
 
   it "calculates the total for the order" do
