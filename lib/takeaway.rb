@@ -1,11 +1,12 @@
 require "order"
 require "sms"
+require "menu"
 
 class Takeaway
-  def initialize(menu:, order_klass: Order, sms_klass: SMS, config: {})
-    @menu = menu
-    @order = order_klass.new(menu)
-    @sms = sms_klass.new(config)
+  def initialize(menu: nil, order: nil, sms: nil, config: {})
+    @menu  = menu
+    @order = order || Order.new(menu)
+    @sms   = sms || SMS.new(config)
   end
 
   def print_menu
